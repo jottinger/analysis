@@ -11,9 +11,9 @@ import static org.testng.Assert.assertEquals;
  * Time: 5:30 PM
  */
 public class SentimentAnalyzerTest {
+    SentimentAnalyzer analyzer = new SentimentAnalyzer();
     @Test
     public void testInstance() {
-        SentimentAnalyzer analyzer=new SentimentAnalyzer();
         System.out.println(analyzer.findSentiment("This is a good thing"));
         System.out.println(analyzer.findSentiment("Hibernate is terrible."));
     }
@@ -22,14 +22,17 @@ public class SentimentAnalyzerTest {
     Object[][] getSubjectData() {
         return new Object[][] {
                 {"I'm going to hibernate. Hibernate is good.", "hibernate", true},
-                {"You should hibernate, people.", "hibernate", false},
-                {"hibernate is awesome", "hibernate", true},
-                {"To save an object, use hibernate", "hibernate", true},
+                {"You should Hibernate, people.", "hibernate", false},
+                {"Hibernate is awesome", "hibernate", true},
+                {"To save an object, use Hibernate", "hibernate", true},
+                {"Do you know how to Hibernate?", "hibernate", false},
+                {"Do you know how to use Hibernate?", "hibernate", true},
+                {"can you hibernate?", "hibernate", false},
+                {"can you use Hibernate?", "hibernate", true},
         };
     }
     @Test(dataProvider = "getSubjectData")
     public void testHasSubject(String corpus, String noun, boolean result) {
-        SentimentAnalyzer analyzer = new SentimentAnalyzer();
         boolean val=analyzer.hasSubject(corpus, noun);
         assertEquals(val, result);
     }
